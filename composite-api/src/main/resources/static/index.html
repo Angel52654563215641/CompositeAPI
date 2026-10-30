@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f6f8">
+    <title>Mercurio | Panel de productos</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" aria-label="Navegación principal">
+            <a class="brand" href="/" aria-label="Mercurio, inicio">
+                <span class="brand-mark" aria-hidden="true">M</span>
+                <span>mercurio<span class="brand-period">.</span></span>
+            </a>
+
+            <div class="nav-caption">ESPACIO DE TRABAJO</div>
+            <a class="nav-link active" href="#overview" aria-current="page">
+                <span class="nav-icon" aria-hidden="true">▦</span>
+                <span>Resumen</span>
+            </a>
+            <a class="nav-link" href="#product-panel">
+                <span class="nav-icon" aria-hidden="true">◇</span>
+                <span>Productos</span>
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-note">
+                    <span class="note-icon" aria-hidden="true">✦</span>
+                    <p>Tu catálogo, inventario y precios en un solo lugar.</p>
+                </div>
+                <div class="profile">
+                    <span class="profile-avatar" aria-hidden="true">EC</span>
+                    <span class="profile-copy">
+                        <strong>Espacio de comercio</strong>
+                        <small>Panel de administración</small>
+                    </span>
+                    <span class="profile-menu" aria-hidden="true">···</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content" id="overview">
+            <header class="topbar">
+                <div class="breadcrumbs"><span>Espacio de trabajo</span><span aria-hidden="true">/</span><strong>Resumen</strong></div>
+                <div class="topbar-meta">
+                    <span class="live-dot" aria-hidden="true"></span>
+                    <span>Datos en tiempo real</span>
+                    <span class="topbar-divider" aria-hidden="true"></span>
+                    <span class="date-label" id="today-label"></span>
+                </div>
+            </header>
+
+            <section class="page-heading">
+                <div>
+                    <p class="eyebrow">PANEL DE CONTROL <span>·</span> CATÁLOGO</p>
+                    <h1>Todo en orden<span class="heading-period">.</span></h1>
+                    <p class="heading-description">Consulta el estado y los detalles de tus productos desde un solo lugar.</p>
+                </div>
+                <form class="search-form" id="product-search">
+                    <label class="sr-only" for="product-id">ID del producto</label>
+                    <span class="search-icon" aria-hidden="true">⌕</span>
+                    <input id="product-id" name="productId" type="search" value="P-101" placeholder="Buscar por ID..." autocomplete="off">
+                    <button type="submit">Buscar <span aria-hidden="true">↗</span></button>
+                </form>
+            </section>
+
+            <section class="quick-picks" aria-label="Productos de ejemplo">
+                <span>PRUEBA RÁPIDA</span>
+                <button type="button" class="quick-pick selected" data-product-id="P-101">P-101 <small>Laptop Gamer</small></button>
+                <button type="button" class="quick-pick" data-product-id="P-102">P-102 <small>Monitor UltraWide</small></button>
+                <button type="button" class="quick-pick" data-product-id="P-103">P-103 <small>Teclado Mecánico</small></button>
+            </section>
+
+            <section class="metrics-grid" aria-label="Resumen del producto consultado">
+                <article class="metric-card">
+                    <div class="metric-top"><span>Precio en MXN</span><span class="metric-icon violet" aria-hidden="true">$</span></div>
+                    <div class="metric-value" id="price-mxn">—</div>
+                    <div class="metric-foot" id="exchange-rate">Esperando consulta del producto</div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-top"><span>Unidades disponibles</span><span class="metric-icon mint" aria-hidden="true">▤</span></div>
+                    <div class="metric-value" id="available-units">—</div>
+                    <div class="metric-foot" id="stock-status">Inventario actual</div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-top"><span>Categoría</span><span class="metric-icon amber" aria-hidden="true">◇</span></div>
+                    <div class="metric-value metric-text" id="product-category">—</div>
+                    <div class="metric-foot">Clasificación del catálogo</div>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-top"><span>Entrega estimada</span><span class="metric-icon blue" aria-hidden="true">↗</span></div>
+                    <div class="metric-value metric-text" id="estimated-delivery">—</div>
+                    <div class="metric-foot">Tiempo de entrega</div>
+                </article>
+            </section>
+
+            <section class="product-section" id="product-panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">DETALLE DEL PRODUCTO</p>
+                        <h2>Vista general</h2>
+                    </div>
+                    <div class="updated-label"><span class="live-dot" aria-hidden="true"></span><span id="updated-at">Sin consultar</span></div>
+                </div>
+
+                <div class="alert" id="error-message" role="alert" hidden></div>
+
+                <article class="product-card" id="product-card" aria-live="polite">
+                    <div class="product-visual">
+                        <div class="visual-glow"></div>
+                        <div class="visual-label"><span class="live-dot" aria-hidden="true"></span> CATÁLOGO</div>
+                        <div class="product-art" aria-hidden="true">
+                            <span class="art-orbit orbit-one"></span>
+                            <span class="art-orbit orbit-two"></span>
+                            <span class="art-cube">M</span>
+                        </div>
+                        <span class="visual-index">01 <span>/</span> 03</span>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-title-row">
+                            <div>
+                                <span class="product-id" id="detail-product-id">PRODUCTO —</span>
+                                <h3 id="product-title">Busca un producto</h3>
+                            </div>
+                            <span class="stock-badge" id="stock-badge"><span></span><span id="stock-badge-label">Sin datos</span></span>
+                        </div>
+                        <p class="product-description" id="product-description">La información del producto aparecerá aquí cuando realices una consulta.</p>
+
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <span>Precio original</span>
+                                <strong id="price-usd">—</strong>
+                            </div>
+                            <div class="detail-item">
+                                <span>Almacén</span>
+                                <strong id="warehouse-location">—</strong>
+                            </div>
+                            <div class="detail-item">
+                                <span>Conversión</span>
+                                <strong id="conversion-source">ExchangeRate-API</strong>
+                            </div>
+                            <div class="detail-item">
+                                <span>Estado de consulta</span>
+                                <strong class="status-value" id="query-status">En espera</strong>
+                            </div>
+                        </div>
+                        <div class="product-footer">
+                            <span><span class="shield-icon" aria-hidden="true">✓</span> Información sincronizada con tus servicios</span>
+                            <span id="generated-at"></span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <footer class="page-footer">
+                <span>Mercurio <span class="footer-dot">·</span> Panel de catálogo</span>
+                <span>Conectado a Composite API</span>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
